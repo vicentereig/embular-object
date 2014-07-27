@@ -1,6 +1,4 @@
 source 'https://rubygems.org'
 
-gem 'jasmine'
-gem 'rspec'
-gem 'jasmine-headless-webkit'
-gem 'rake'
+# Specify your gem's dependencies in embular-object.gemspec
+gemspec

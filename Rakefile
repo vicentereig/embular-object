@@ -1,3 +1,5 @@
+require 'bundler/gem_tasks'
+
 begin
   require 'jasmine'
   require 'jasmine-headless-webkit'
