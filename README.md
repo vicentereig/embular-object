@@ -1,36 +1,44 @@
-<<<<<<< HEAD
+
 # Embular::Object
 
-TODO: Write a gem description
+Demo: http://hola-embular.herokuapp.com/
+Sample app: https://github.com/vicentereig/hola-embular
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'embular-object'
+    gem 'embular-object', github: 'vicentereig/embular-object'
+    
+Require the Angular module into your Asset Pipeline
+    
+```javascript
+//= require embular-object
+```
 
-And then execute:
+Inject the `embular-object` module into your Angular app. 
+It contains a decorator around [`$parse`](https://docs.angularjs.org/api/ng/service/$parse) 
+which use Ember's getter and setters to access properties and computed properties in your model.
 
-    $ bundle
+```javascript
+  var App = angular.module('hola-embular', ['embular-object']);
+```
 
-Or install it yourself as:
+Use the `$scope` to expose an Ember Object to your angular templates.
 
-    $ gem install embular-object
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Contributing
-
-1. Fork it ( https://github.com/[my-github-username]/embular-object/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
-=======
-embular-object
-==============
-
-Ember Objects playing nice with Angular
->>>>>>> Initial commit
+```javascript
+    var App = angular.module('hola-embular', ['templates', 'embular-object']);
+    
+    var Customer = Ember.Object.extend({
+        fullName: function() {
+            return [this.get('name'), this.get('lastName')].join(' ');
+        }.property('name', 'lastName')
+    });
+    
+    function CustomerDetailsController($scope) {
+        var customer = Customer.create({name: 'Íñigo', lastName: 'Montoya'});
+        $scope.customer = customer;
+    }
+    
+    App.controller('CustomerDetailsController', ['$scope', CustomerDetailsController]);
+```
